@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import shoppingCart.App.dto.AppConstants;
 import shoppingCart.App.dto.ProductDto;
 import shoppingCart.App.dto.ProductResponse;
+import shoppingCart.App.entity.Product;
 import shoppingCart.App.service.ProductService;
 
 import java.util.List;
@@ -44,9 +45,18 @@ public class ProductController {
         return new ResponseEntity<String>("Product Deleted", HttpStatus.OK);
     }
 
+
+    // Update Product by productId
     @PutMapping("/updateProduct/{productId}")
     public ResponseEntity<ProductDto> updateProductById(@PathVariable int productId, @RequestBody ProductDto updatedProduct){
        ProductDto updateProduct = productService.updateProductById(productId,updatedProduct);
        return new ResponseEntity<ProductDto>(updatedProduct,HttpStatus.ACCEPTED);
+    }
+
+    // Find Product By Category Wise
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<ProductDto>> getProductByCategory(@PathVariable int categoryId){
+      List<ProductDto> findProductByCategory =  this.productService.findProductByCategory(categoryId);
+        return new ResponseEntity<List<ProductDto>>(findProductByCategory, HttpStatus.ACCEPTED);
     }
 }

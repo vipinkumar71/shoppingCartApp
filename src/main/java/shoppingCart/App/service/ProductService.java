@@ -130,4 +130,13 @@ public class ProductService {
         prodDto.setCategory(catDto);
         return prodDto;
     }
+
+    // find Product By Category
+    public List<ProductDto> findProductByCategory(int categoryId){
+       Category category = this.categoryRepository.findById(categoryId)
+               .orElseThrow(()-> new ResourceNotFountException("This Category id not found"));
+       List<Product> findByCategory = this.productRepository.findByCategory(category);
+       List<ProductDto> collect = findByCategory.stream().map(product -> toDto(product)).collect(Collectors.toList());
+        return collect;
+    }
 }
