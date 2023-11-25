@@ -1,9 +1,12 @@
 package shoppingCart.App.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import shoppingCart.App.entity.Category;
+import lombok.Setter;
 
 @Getter
+@Setter
+@AllArgsConstructor
 public class ProductDto {
     private int productId;
     private String productName;
@@ -16,18 +19,6 @@ public class ProductDto {
 
     public ProductDto() {
         super();
-    }
-
-
-    public ProductDto(int productId, String productName, String productDescription, double productPrice, boolean stock, int productQuantity, String imageName, CategoryDto category) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.productPrice = productPrice;
-        this.stock = stock;
-        this.productQuantity = productQuantity;
-        this.imageName = imageName;
-        this.category = category;
     }
 
     public void setProductId(int productId) {
@@ -57,7 +48,7 @@ public class ProductDto {
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
-    public void setCategory(CategoryDto category){
-        this.category = category;
+    public void setCategory(CategoryDto categoryDto){
+        this.category = categoryDto;
     }
 }

@@ -1,27 +1,29 @@
 package shoppingCart.App.entity;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cart {
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cartId;
+    private int cartItemId;
+    private int quantity;
+    private double totalPrice;
+
 
     //Relationship with other table
-    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-    private	Set<CartItem> items= new HashSet<>();
+    @ManyToOne
+    private Cart cart;
     @OneToOne
-    private User user;
+    private Product product;
 }

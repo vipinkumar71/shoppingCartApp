@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CategoryDto {
-    private int categoryId;
-    private String title;
+public class JwtResponse {
+    private String token;
+    private UserDto user;
 }

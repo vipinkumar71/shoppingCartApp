@@ -1,9 +1,9 @@
 package shoppingCart.App.entity;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.Set;
 
 @Getter
@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int categoryId;
     private String title;
     @Getter
