@@ -1,21 +1,45 @@
 package shoppingCart.App.controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import shoppingCart.App.dto.AppConstants;
 import shoppingCart.App.dto.ProductDto;
 import shoppingCart.App.dto.ProductResponse;
-import shoppingCart.App.entity.Product;
+import shoppingCart.App.service.FileUpload;
 import shoppingCart.App.service.ProductService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private FileUpload fileUpload;
+    @Value("${product.images.path}")
+    private String imagePath;
+
+    @PostMapping("product/images/{productId}")
+    public ResponseEntity<?> uploadImageOfProduct(@PathVariable int productId,
+                                                  @RequestParam("productImage")MultipartFile file) {
+        ProductDto product = this.productService.getProductById(productId);
+        String imageName = null;
+        try {
+           String uploadImage = this.fileUpload.uploadImage(imagePath, file);
+            product.setImageName(uploadImage);
+            ProductDto updateProduct =  this.productService.updateProductById(productId, product);
+           return new  ResponseEntity<>(updateProduct, HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(Map.of("Message","File not upload in server"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/create/{categoryId}")
     @ResponseBody
     public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto product, @PathVariable int categoryId) {

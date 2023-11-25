@@ -103,7 +103,7 @@ public class CartService {
     // get cart by CartId
     public CartDto getCartByID(int cartId){
 
-       // User user =this.userRepository.findByEmail(username).orElseThrow(()->new ResourceNotFountException("User Not found"));
+//        User user =this.userRepository.findByEmail(username).orElseThrow(()->new ResourceNotFountException("User Not found"));
 
         Cart findByUserAndCartId = this.cartRepository.findById(cartId)
                 .orElseThrow(()->new ResourceNotFountException("Cart not Found"));
@@ -118,9 +118,8 @@ public class CartService {
         Cart cart=user.getCart();
         Set<CartItem> items = cart.getItems();
 
-        boolean removeIf = items.removeIf((i)->i.getProduct().getProductId()==productId);
+        boolean removeIf = items.removeIf((i)->i.getProduct().getProductId() == productId);
         Cart save = this.cartRepository.save(cart);
-        System.out.println(removeIf);
         return this.modelMapper.map(save,CartDto.class);
     }
 

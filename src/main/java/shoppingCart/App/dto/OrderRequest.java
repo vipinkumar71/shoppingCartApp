@@ -1,20 +1,11 @@
 package shoppingCart.App.dto;
 
-public class OrderRequest {
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+public class OrderRequest {
     private String orderAddress;
     private int cartId;
-    public String getOrderAddress() {
-        return orderAddress;
-    }
-    public void setOrderAddress(String orderAddress) {
-        this.orderAddress = orderAddress;
-    }
-    public int getCartId() {
-        return cartId;
-    }
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
-    }
-
 }
