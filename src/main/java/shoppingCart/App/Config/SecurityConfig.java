@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-    public static String[] PUBLIC_URL= {"/auth/login"};
+    public static String[] PUBLIC_URL= {"/auth/login","/users","/product/view", "/categories/getAllCategories"};
     @Autowired
     private JwtAuthenticationFilter filter;
 
